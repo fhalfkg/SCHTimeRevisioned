@@ -13,19 +13,3 @@ class WorldTimePage(tkinter.Tk):
         self.resizable(False, False)
         self.geometry("300x320+800+140")
         self.title("세계시간")
-
-        # TODO: 동적으로 시간 표시
-        WorldTimeListBuilder.build(self, [
-            {
-                "name": "서울",
-                "time": "2019-01-01 00:00:00"
-            }
-        ])
-
-class WorldTimeListBuilder():
-    def build(self, timelist):
-        for i, data in enumerate(timelist):
-            tkinter.Label(self, text=data["name"]).grid(
-                column=0, row=i, sticky="ew")
-            tkinter.Label(self, text=data["time"]).grid(
-                column=1, row=i, sticky="ew")
