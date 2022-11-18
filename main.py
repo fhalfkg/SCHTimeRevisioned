@@ -12,4 +12,5 @@ class MainPage(tkinter.Tk):
         self.grid()
 
 app = MainPage(None)
+app.title("SCHTime")
 app.mainloop()
