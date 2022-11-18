@@ -11,7 +11,7 @@ class MainPage(tkinter.Tk):
         # set window env
         self.grid()
         self.resizable(False, False)
-        self.geometry("300x320+500+140")
+        self.geometry("300x320+500+200")
 
         self.WIDTH = 20
         self.HEIGHT = 10
