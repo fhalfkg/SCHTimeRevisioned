@@ -1,4 +1,5 @@
 import tkinter
+from worldtime import WorldTimePage
 
 class MainPage(tkinter.Tk):
     def __init__(self, parent):
@@ -11,7 +12,7 @@ class MainPage(tkinter.Tk):
         # set window env
         self.grid()
         self.resizable(False, False)
-        self.geometry("300x320+500+140")
+        self.geometry("300x320+500+200")
 
         self.WIDTH = 20
         self.HEIGHT = 10
@@ -34,7 +35,7 @@ class MainPage(tkinter.Tk):
         btn4.grid(column=1, row=1)
 
     def onBtn1Click(self):
-        pass
+        WorldTimePage(None).mainloop()
 
     def onBtn2Click(self):
         pass
