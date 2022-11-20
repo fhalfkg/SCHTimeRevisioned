@@ -55,6 +55,13 @@ def submit():
 
         temp -= 1
 
+def submit2():
+    time.sleep(15)
+    
+btn = Button(root, text='정지', bd='5',
+             command= submit2)
+btn.place(x = 180,y = 120)
+
 btn = Button(root, text='시작', bd='5',
              command= submit)
 btn.place(x = 80,y = 120)
