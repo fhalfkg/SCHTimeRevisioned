@@ -1,69 +1,64 @@
+import tkinter
 import time
-from tkinter import *
 from tkinter import messagebox
- 
-root = Tk()
-  
-root.geometry("300x250")
-  
-root.title("Time Counter")
-  
-hour=StringVar()
-minute=StringVar()
-second=StringVar()
-  
-hour.set("00")
-minute.set("00")
-second.set("00")
 
-hourEntry= Entry(root, width=3, font=("Arial",18,""),
-                 textvariable=hour)
-hourEntry.place(x=80,y=20)
-  
-minuteEntry= Entry(root, width=3, font=("Arial",18,""),
-                   textvariable=minute)
-minuteEntry.place(x=130,y=20)
-  
-secondEntry= Entry(root, width=3, font=("Arial",18,""),
-                   textvariable=second)
-secondEntry.place(x=180,y=20)
-  
-def submit():
-    try:
-    
-        temp = int(hour.get())*3600 + int(minute.get())*60 + int(second.get())
-    except:
-        print("Please input the right value")
-    while temp >-1:
-         
-        mins,secs = divmod(temp,60)
-  
-        hours=0
-        if mins >60:
 
-            hours, mins = divmod(mins, 60)
-         
-        hour.set("{0:2d}".format(hours))
-        minute.set("{0:2d}".format(mins))
-        second.set("{0:2d}".format(secs))
+class TimerPage(tkinter.Tk):
+    def __init__(self, parent):
+        tkinter.Tk.__init__(self, parent)
+        self.parent = parent
+        self.initialize()
 
-        root.update()
-        time.sleep(1)
+    def initialize(self):
+        self.geometry("300x250")
+        self.title("타이머")
+        self.hour = tkinter.StringVar(value="00")
+        self.minute = tkinter.StringVar(value="00")
+        self.second = tkinter.StringVar(value="00")
+        
+        self.hourEntry = tkinter.Entry(self, width=5, font=(
+            "Arial", 18, ""), textvariable=self.hour)
+        self.hourEntry.place(x=80, y=20)
 
-        if (temp == 0):
-            messagebox.showinfo("Time Countdown", "재시작 하시겠습니까? ")
+        self.minuteEntry = tkinter.Entry(self, width=5, font=(
+            "Arial", 18, ""), textvariable=self.minute)
+        self.minuteEntry.place(x=130, y=20)
 
-        temp -= 1
+        self.secondEntry = tkinter.Entry(self, width=5, font=(
+            "Arial", 18, ""), textvariable=self.second)
+        self.secondEntry.place(x=180, y=20)
 
-def submit2():
-    time.sleep(15)
-    
-btn = Button(root, text='정지', bd='5',
-             command= submit2)
-btn.place(x = 180,y = 120)
+        btn = tkinter.Button(self, text="시작", width=10,
+                             bd='5', command=self.submit)
+        btn.place(x=180, y=120)
+        btn = tkinter.Button(self, text="정지", width=10,
+                             bd='5', command=self.submit2)
+        btn.place(x=80, y=120)
 
-btn = Button(root, text='시작', bd='5',
-             command= submit)
-btn.place(x = 80,y = 120)
+    def submit(self):
+        try:
+            temp = int(self.hour.get())*3600 + \
+                int(self.minute.get())*60 + int(self.second.get())
+        except:
+            messagebox.showinfo("타이머", "올바른 값을 입력해주세요")
+        while temp > -1:
+            mins, secs = divmod(temp, 60)
+            hours = 0
 
-root.mainloop()
+            if mins > 60:
+                hours, mins = divmod(mins, 60)
+
+            self.hour.set("{0:2d}".format(hours))
+            self.minute.set("{0:2d}".format(mins))
+            self.second.set("{0:2d}".format(secs))
+
+            self.update()
+            time.sleep(1)
+
+            if (temp == 0):
+                messagebox.showinfo("타이머", "재시작하시겠습니까?")
+            temp -= 1
+
+    def submit2(self):
+        time.sleep(15)
+        

@@ -1,6 +1,7 @@
 import tkinter
 from worldtime import WorldTimePage
 from stopwatch import StopwatchPage
+from timer import TimerPage
 
 class MainPage(tkinter.Tk):
     def __init__(self, parent):
@@ -41,7 +42,7 @@ class MainPage(tkinter.Tk):
         StopwatchPage(None).mainloop()
 
     def onBtn3Click(self):
-        pass
+        TimerPage(None).mainloop()
 
     def onBtn4Click(self):
         pass
