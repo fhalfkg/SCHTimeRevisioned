@@ -38,7 +38,6 @@ class StopwatchPage(tkinter.Tk):
         self.saved_frame = tkinter.LabelFrame(self.saved_canvas, text="랩:")
         self.scrollbar = tkinter.Scrollbar(self, orient=tkinter.VERTICAL,
                                            command=self.saved_canvas.yview)
-
         self.left.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
         self.clock.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
         self.button_frame.pack(side=tkinter.BOTTOM,
