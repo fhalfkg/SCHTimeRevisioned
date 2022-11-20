@@ -34,7 +34,6 @@ class StopwatchPage(tkinter.Tk):
         self.button_frame.pack(side=tkinter.BOTTOM,
                                fill=tkinter.BOTH, expand=1)
         self.active_button.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
-
         self.thread = Thread(target=self.update, daemon=True)
 
     def update(self):
@@ -71,4 +70,8 @@ class StopwatchPage(tkinter.Tk):
 
     def start(self):
         self.active = True
- 
+        self.active_button.config(text="일시정지", command=self.pause)
+
+    def pause(self):
+        self.active = False
+        self.active_button.config(text="시작", command=self.start)
