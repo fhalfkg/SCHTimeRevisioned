@@ -7,6 +7,8 @@ class WorldTimePage(tkinter.Tk):
     def __init__(self, parent):
         tkinter.Tk.__init__(self, parent)
         self.parent = parent
+        self.id = None
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.initialize()
 
     def initialize(self):
@@ -50,4 +52,11 @@ class WorldTimePage(tkinter.Tk):
         london_timevalue = london_timevalue.strftime("%H:%M:%S")
         self.london_time.config(text=london_timevalue)
 
-        self.after(200, self.set_time)
+        if (self.id is not None):
+            self.after_cancel(self.id)
+
+        self.id = self.after(200, self.set_time)
+
+    def on_closing(self):
+        self.after_cancel(self.id)
+        self.destroy()
