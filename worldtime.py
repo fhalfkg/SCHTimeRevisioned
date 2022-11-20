@@ -31,3 +31,23 @@ class WorldTimePage(tkinter.Tk):
         self.london_label.grid(column=0, row=2)
         self.london_time = tkinter.Label(self, text="00:00:00")
         self.london_time.grid(column=1, row=2)
+
+        self.sync = tkinter.Button(self, text="시간 동기화", command=self.set_time)
+        self.sync.grid(column=0, row=3, columnspan=2)
+
+        self.set_time()
+
+    def set_time(self):
+        seoul_timevalue = datetime.now(pytz.timezone('Asia/Seoul'))
+        seoul_timevalue = seoul_timevalue.strftime("%H:%M:%S")
+        self.seoul_time.config(text=seoul_timevalue)
+
+        washington_timevalue = datetime.now(pytz.timezone('US/Eastern'))
+        washington_timevalue = washington_timevalue.strftime("%H:%M:%S")
+        self.washington_time.config(text=washington_timevalue)
+
+        london_timevalue = datetime.now(pytz.timezone('Europe/London'))
+        london_timevalue = london_timevalue.strftime("%H:%M:%S")
+        self.london_time.config(text=london_timevalue)
+
+        self.after(200, self.set_time)
