@@ -1,4 +1,5 @@
 import tkinter
+from stopwatch import StopwatchPage
 
 class MainPage(tkinter.Tk):
     def __init__(self, parent):
@@ -37,7 +38,7 @@ class MainPage(tkinter.Tk):
         pass
 
     def onBtn2Click(self):
-        pass
+        StopwatchPage(None).mainloop()
 
     def onBtn3Click(self):
         pass
