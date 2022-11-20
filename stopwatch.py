@@ -28,7 +28,8 @@ class StopwatchPage(tkinter.Tk):
         self.button_frame = tkinter.Frame(self.left)
         self.active_button = tkinter.Button(
             self.button_frame, text="시작", command=self.start)
-
+        self.restart_button = tkinter.Button(self.button_frame, text="재시작",
+                                             command=self.restart)
         self.save_button = tkinter.Button(
             self.button_frame, text="랩", command=self.save)
         self.clear_button = tkinter.Button(self.button_frame, text="랩 초기화",
@@ -43,7 +44,8 @@ class StopwatchPage(tkinter.Tk):
         self.button_frame.pack(side=tkinter.BOTTOM,
                                fill=tkinter.BOTH, expand=1)
         self.active_button.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
-
+        self.restart_button.pack(
+            side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
         self.clear_button.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
         self.save_button.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
         self.saved_canvas.pack(side=tkinter.LEFT, fill=tkinter.Y, expand=0)
@@ -96,6 +98,16 @@ class StopwatchPage(tkinter.Tk):
     def pause(self):
         self.active = False
         self.active_button.config(text="시작", command=self.start)
+
+    def restart(self):
+        self.active = False
+        self.time = "00:00:00"
+        self.seconds = 0
+        self.minutes = 0
+        self.hours = 0
+        self.clear()
+        self.active_button.config(text="시작", command=self.start)
+        self.clock["text"] = str(self.time)
 
     def save(self):
         self.saved.append(self.time)
