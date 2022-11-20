@@ -51,7 +51,7 @@ def submit():
         time.sleep(1)
 
         if (temp == 0):
-            ("Time Countdown")
+            messagebox.showinfo("Time Countdown", "재시작 하시겠습니까? ")
 
         temp -= 1
 
