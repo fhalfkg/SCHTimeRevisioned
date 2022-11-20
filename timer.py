@@ -61,3 +61,4 @@ class TimerPage(tkinter.Tk):
 
     def submit2(self):
         time.sleep(15)
+        
