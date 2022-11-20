@@ -29,14 +29,11 @@ class StopwatchPage(tkinter.Tk):
         self.active_button = tkinter.Button(
             self.button_frame, text="시작", command=self.start)
 
-
         self.left.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
         self.clock.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
         self.button_frame.pack(side=tkinter.BOTTOM,
                                fill=tkinter.BOTH, expand=1)
         self.active_button.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
-
-
         self.thread = Thread(target=self.update, daemon=True)
 
     def update(self):
