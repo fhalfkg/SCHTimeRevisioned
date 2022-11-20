@@ -29,11 +29,30 @@ class StopwatchPage(tkinter.Tk):
         self.active_button = tkinter.Button(
             self.button_frame, text="시작", command=self.start)
 
+        self.save_button = tkinter.Button(
+            self.button_frame, text="랩", command=self.save)
+        self.clear_button = tkinter.Button(self.button_frame, text="랩 초기화",
+                                           command=self.clear)
+        self.saved_canvas = tkinter.Canvas(self, width=150)
+        self.saved_frame = tkinter.LabelFrame(self.saved_canvas, text="랩:")
+        self.scrollbar = tkinter.Scrollbar(self, orient=tkinter.VERTICAL,
+                                           command=self.saved_canvas.yview)
         self.left.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
         self.clock.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
         self.button_frame.pack(side=tkinter.BOTTOM,
                                fill=tkinter.BOTH, expand=1)
         self.active_button.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
+        self.clear_button.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
+        self.save_button.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=1)
+        self.saved_canvas.pack(side=tkinter.LEFT, fill=tkinter.Y, expand=0)
+        self.scrollbar.pack(side=tkinter.LEFT, fill=tkinter.Y, expand=0)
+
+        self.saved_canvas.create_window(0, 0, anchor='nw', tags="saved",
+                                        window=self.saved_frame)
+        self.saved_canvas.update_idletasks()
+        self.saved_canvas.configure(scrollregion=self.saved_canvas.bbox('all'),
+                                    yscrollcommand=self.scrollbar.set)
+
         self.thread = Thread(target=self.update, daemon=True)
 
     def update(self):
@@ -75,3 +94,28 @@ class StopwatchPage(tkinter.Tk):
     def pause(self):
         self.active = False
         self.active_button.config(text="시작", command=self.start)
+
+    def save(self):
+        self.saved.append(self.time)
+        num = len(self.saved)
+        savedTime = tkinter.Label(self.saved_frame,
+                                  text=f"랩 #{num} - {self.saved[-1]}")
+        savedTime.grid(row=len(self.saved), column=0, sticky="EW")
+        self.saved_canvas.delete("saved")
+        self.saved_canvas.create_window(0, 0, anchor='nw', tags="saved",
+                                        window=self.saved_frame)
+        self.saved_canvas.update_idletasks()
+        self.saved_canvas.configure(scrollregion=self.saved_canvas.bbox('all'),
+                                    yscrollcommand=self.scrollbar.set)
+
+    def clear(self):
+        self.saved = []
+        self.saved_frame.destroy()
+        self.saved_frame = tkinter.LabelFrame(
+            self.saved_canvas, text="Saved Times:")
+        self.saved_canvas.delete("saved")
+        self.saved_canvas.create_window(0, 0, anchor='nw', tags="saved",
+                                        window=self.saved_frame)
+        self.saved_canvas.update_idletasks()
+        self.saved_canvas.configure(scrollregion=self.saved_canvas.bbox('all'),
+                                    yscrollcommand=self.scrollbar.set)
